@@ -1,0 +1,1 @@
+insert into USER(userId, password, name, email) values('userId', 'password', 'name', 'email@slipp.net');
