@@ -22,6 +22,15 @@ public class User {
 	
 	@Column(length=30)
 	private String email;
+	
+	public void update(User user) {
+		if(!password.equals(user.password)) {
+			throw new IllegalArgumentException("비밀번호가 다릅니다.");
+		}
+			
+		this.name = user.name;
+		this.email = user.email;
+	}
 
 	public void setUserId(String userId) {
 		this.userId = userId;
@@ -43,5 +52,7 @@ public class User {
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", email=" + email + "]";
 	}
+
+
 	
 }
