@@ -26,7 +26,6 @@ public class UserController {
 		model.addAttribute("users", userRepository.findAll());
 		return "/user/list";
 	}
-
 	
 	@PostMapping("")
 	public String create(User user, Model model) {
@@ -34,5 +33,4 @@ public class UserController {
 		userRepository.save(user);
 		return "redirect:/users";
 	}
-	
 }
