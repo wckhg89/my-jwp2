@@ -1,5 +1,9 @@
 package slipp.model;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ForeignKey;
@@ -8,6 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
+
+import org.hibernate.annotations.Where;
 
 @Entity
 public class Question {
@@ -25,12 +33,21 @@ public class Question {
 	@Column(nullable = false)
 	@Lob
 	private String contents;
+	
+	private LocalDateTime createDate = LocalDateTime.now();
+	
+	@OneToMany(mappedBy="question")
+	@Where(clause = "deleted = false")
+	@OrderBy("id ASC")
+	private List<Answer> answers;
+	
+	private boolean deleted;
 
 	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public void setWriter(User writer) {
+	public void writeBy(User writer) {
 		this.writer = writer;
 	}
 
@@ -40,6 +57,18 @@ public class Question {
 
 	public void setContents(String contents) {
 		this.contents = contents;
+	}
+	
+	public String getFormattedCreateDate() {
+		if (createDate == null) {
+			return "";
+		}
+		return createDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+	}
+	
+	public boolean isSameWriter(User loginUser) {
+		System.out.println("writer : " + writer);
+		return this.writer.equals(loginUser);
 	}
 
 	@Override

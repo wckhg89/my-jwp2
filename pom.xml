@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.slipp</groupId>
-	<artifactId>my-jwp</artifactId>
+	<artifactId>my-jwp2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>my-jwp</name>
+	<name>my-jwp2</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
