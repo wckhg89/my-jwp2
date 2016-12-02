@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import slipp.model.User;
 import slipp.model.UserRepository;
+import slipp.utils.HttpSessionUtils;
 
 @Controller
 @RequestMapping("/users")
@@ -43,12 +44,11 @@ public class UserController {
 	
 	@PutMapping("/{id}")
 	public String update(@PathVariable Long id, User user, HttpSession session) {
-		Object tempUser = session.getAttribute("loginUser");
-		if( tempUser == null) {
+		if(!HttpSessionUtils.isLoginUser(session)) {
 			return "redirect:/users/login";
 		}
 		
-		User loginUser = (User)tempUser;
+		User loginUser = HttpSessionUtils.getUserFromSession(session);
 		if (!loginUser.matchId(id)) {
 			throw new IllegalStateException("다른 사람의 정보를 수정할 수 없습니다.");
 		}
@@ -62,11 +62,11 @@ public class UserController {
 	
 	@GetMapping("/{id}/form")
 	public String updateForm(@PathVariable Long id, Model model, HttpSession session) {
-		Object tempUser = session.getAttribute("loginUser");
-		if( tempUser == null) {
+		if(!HttpSessionUtils.isLoginUser(session)) {
 			return "redirect:/users/login";
 		}
-		User loginUser = (User)tempUser;
+		
+		User loginUser = HttpSessionUtils.getUserFromSession(session);
 		if (!loginUser.matchId(id)) {
 			throw new IllegalStateException("다른 사람의 정보를 수정할 수 없습니다.");
 		}
