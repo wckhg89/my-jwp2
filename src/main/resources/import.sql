@@ -1,1 +1,1 @@
-insert into USER(user_id, password, name, email) values(1, 'javajigi', 'test', 'name', 'email@slipp.net');
+insert into USER(id, user_id, password, name, email) values(1, 'javajigi', 'test', 'name', 'email@slipp.net');

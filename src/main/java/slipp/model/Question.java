@@ -2,19 +2,23 @@ package slipp.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Question {
 	@Id
 	@GeneratedValue
 	private Long id;
-
-	@Column(length = 20, nullable = false)
-	private String writer;
-
+	
+	@ManyToOne
+	@JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
+	private User writer;
+	
 	@Column(length = 100, nullable = false)
 	private String title;
 
@@ -26,7 +30,7 @@ public class Question {
 		this.id = id;
 	}
 
-	public void setWriter(String writer) {
+	public void setWriter(User writer) {
 		this.writer = writer;
 	}
 

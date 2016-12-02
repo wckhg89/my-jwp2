@@ -23,8 +23,16 @@ public class User {
 	@Column(length=30)
 	private String email;
 	
+	public boolean matchPassword(String newPassword) {
+		if (this.password == null) {
+			return false;
+		}
+		
+		return this.password.equals(newPassword);
+	}
+	
 	public void update(User user) {
-		if(!password.equals(user.password)) {
+		if(!matchPassword(user.password)) {
 			throw new IllegalArgumentException("비밀번호가 다릅니다.");
 		}
 			
@@ -47,12 +55,13 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	public boolean matchId(Long id) {
+		return this.id.equals(id);
+	}
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", password=" + password + ", name=" + name + ", email=" + email + "]";
 	}
-
-
-	
 }
