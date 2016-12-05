@@ -15,23 +15,29 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Where;
 
 @Entity
 public class Question {
 	@Id
 	@GeneratedValue
+	@JsonProperty
 	private Long id;
 	
 	@ManyToOne
 	@JoinColumn(foreignKey = @ForeignKey(name = "fk_question_writer"))
+	@JsonProperty
 	private User writer;
 	
 	@Column(length = 100, nullable = false)
+	@JsonProperty
 	private String title;
 
 	@Column(nullable = false)
 	@Lob
+	@JsonProperty
 	private String contents;
 	
 	private LocalDateTime createDate = LocalDateTime.now();
@@ -39,6 +45,7 @@ public class Question {
 	@OneToMany(mappedBy="question")
 	@Where(clause = "deleted = false")
 	@OrderBy("id ASC")
+    @JsonIgnore
 	private List<Answer> answers;
 	
 	private boolean deleted;
