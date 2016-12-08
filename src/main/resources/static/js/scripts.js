@@ -1,9 +1,9 @@
 $(".answer-write input[type='submit']").click(addAnswer);
-$(".form-delete-answer").click("input[type='submit']", deleteAnswer);
+$(".qna-comment-slipp-articles").on("click", ".delete-answer-form button[type='submit']", deleteAnswer);
 
 function deleteAnswer (e) {
     e.preventDefault();
-    var url = $('.form-delete-answer').attr("action");
+    var url = $('.delete-answer-form').attr("action");
     var $that = $(this);
     $.ajax({
         type: 'DELETE',
